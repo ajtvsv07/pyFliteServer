@@ -21,13 +21,15 @@ start_file_name = 0001
 flask_app = Flask(__name__)
 
 supported_voices = {
-	"hindi": voice+"cmu_indic_sxs_hi.flitevox",
+	"english": "",
+	"hindi": voice+"cmu_indic_axb_hi.flitevox",
 	"tamil": voice+"cmu_indic_sxv_ta.flitevox",
 	"telugu": voice+"cmu_indic_knr_te.flitevox",
 	"marathi": voice+"cmu_indic_slp_mr.flitevox"
 }
 
 output_dirs = {
+	"english": output_common+"/english/",
 	"hindi": output_common+"/hindi/",
 	"tamil": output_common+"/tamil/",
 	"telugu": output_common+"/telugu/",
@@ -44,7 +46,12 @@ def download():
 	filename = req_json['filename']
 	la = filename.split("_")[0]
 	try:
-		return send_file(output_dirs[la]+filename,attachment_filename=filename)
+		# return send_file(output_dirs[la]+filename,attachment_filename=filename)
+		return send_file(
+			output_dirs[la] + filename,
+			mimetype="audio/wav",
+			as_attachment=True,
+			attachment_filename=filename)
 	except Exception as e:
 		return str(e)
 
@@ -70,9 +77,12 @@ def text_to_speech():
 		try:
 			print(output_dirs[la]+filename)
 			arg_1 = u" -t \"" + unicode(text)+"\""
-			arg_2 = u" -voice " + unicode(supported_voices[la])
 			arg_3 = u" -o " + unicode(output_dirs[la]+filename)
-			args = arg_1+arg_2+arg_3
+			if supported_voices[la] != "":
+				arg_2 = u" -voice " + unicode(supported_voices[la])
+				args = arg_1 + arg_2 + arg_3
+			else:
+				args = arg_1 + arg_3
 			cmd = flite_bin + args
 
 			wr = codecs.open(dir_path+"/shell_command.sh","w","utf-8")
@@ -102,8 +112,4 @@ def text_to_speech():
 		response['language'] = la
 
 	return jsonify(response)
-
-
-
-	return "tts"
 

@@ -46,3 +46,6 @@ curl -X POST \
   -d '{
 	"filename" : "tamil_4.wav"
 }'
+
+### Supported Languages
+-   English, Tamil, Telugu, Marathi and Hindi
