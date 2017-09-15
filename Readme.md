@@ -8,7 +8,7 @@
 6. make install
 7. wget http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_indic_knr_te.flitevox
 8. wget http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_indic_slp_mr.flitevox
-9. wget http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_indic_sxs_hi.flitevox
+9. wget http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_indic_axb_hi.flitevox
 10. wget http://www.festvox.org/flite/packed/flite-2.0/voices/cmu_indic_sxv_ta.flitevox
 11. sudo python run.py
 
